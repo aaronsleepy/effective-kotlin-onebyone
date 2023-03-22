@@ -2,7 +2,10 @@ package part01
 
 
 fun main() {
-    findPrimesNaive()
+//    findPrimesNaive()
+
+    findPrimesSequence()
+
 }
 
 fun findPrimesNaive() {
@@ -15,4 +18,20 @@ fun findPrimesNaive() {
         numbers = numbers.filter { it % prime != 0 }
     }
     print(primes)
+}
+
+fun findPrimesSequence() {
+    val primes = sequence {
+        var numbers = generateSequence(2) { it + 1}
+        var prime: Int
+        while (true) {
+            prime = numbers.first()
+            yield(prime)
+
+            numbers = numbers.drop(1)
+                .filter { it % prime != 0 }
+        }
+    }
+
+    print(primes.take(10).toList())
 }
